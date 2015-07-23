@@ -289,7 +289,7 @@ Check out http://www.voxengo.com/impulses/ for free impulse responses. **/
         }
 
         else {
-            that.panning = { 
+            that.panning = {
                 location : 0,
                 type     : 'stereo',
             };
@@ -329,7 +329,7 @@ Check out http://www.voxengo.com/impulses/ for free impulse responses. **/
         }, function(error) { console.log('Error setting up microphone input: ', error); }); // This is the error callback.
     };
 ////////////////////////////////////////////////////////////////////
-    
+
     var setUpMic = function(that, arg){
         that.nodes           = [];
         that.gain            = context.createGain();
@@ -451,7 +451,7 @@ with special handling for nodes with custom interfaces (e.g. reverb, delay). **/
             }
             from.connect(to);
         }
-        if ( that.nodes[that.nodes.length-1].interface === 'custom') { 
+        if ( that.nodes[that.nodes.length-1].interface === 'custom') {
             var lastStop = that.nodes[that.nodes.length-1].output;
         }
         else { // assume native interface
@@ -695,7 +695,7 @@ then finally play the sound by calling playEnv() **/
             this.playOnLoadArg = arg;
         }
 
-        else if ( this.source === 'mic' ) { 
+        else if ( this.source === 'mic' ) {
             if ( arg.arg === null ) {
                 plugEmIn(this, arg);
             }
@@ -809,7 +809,7 @@ then finally play the sound by calling playEnv() **/
         else if ( typeof panning === 'number' && this.panning.type === 'stereo' && this.panning.node) {
             this.panning.node.pan.value = panning;
         }
-        
+
         if ( isArray(panning) ) { this.panning.type = '3d' }
         else if ( typeof panning === 'number' ) { this.panning.type = 'stereo' }
         return this;
@@ -1339,7 +1339,7 @@ var valueOrDefault = function(value, def) {
         'C8'
     ];
 //////////////////////////////////////////////////////////////
-
+/*
     Wad.midiInstrument = {
         play : function() { console.log('playing midi')  },
         stop : function() { console.log('stopping midi') }
@@ -1407,7 +1407,7 @@ var valueOrDefault = function(value, def) {
             console.log(text);
         }
     }
-
+*/
 
     Wad.presets = {
         hiHatClosed : { source : 'noise', env : { attack : .001, decay : .008, sustain : .2, hold : .03, release : .01}, filter : { type : 'highpass', frequency : 400, q : 1 } },

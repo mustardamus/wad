@@ -1,3 +1,8 @@
+### This Fork
+
+I just removed the MIDI Device stuff, as I would like to handle this myself
+and easily get rid of the log messages.
+
 <h1>Wad</h1>
 
 
@@ -88,7 +93,7 @@ The Wad constructor supports many optional arguments to modify your sound, from 
 var saw = new Wad({
     source  : 'sawtooth',
     volume  : 1.0,   // Peak volume can range from 0 to an arbitrarily high number, but you probably shouldn't set it higher than 1.
-    loop    : false, // If true, the audio will loop. This parameter only works for audio clips, and does nothing for oscillators. 
+    loop    : false, // If true, the audio will loop. This parameter only works for audio clips, and does nothing for oscillators.
     pitch   : 'A4',  // Set a default pitch on the constuctor if you don't want to set the pitch on <code>play()</code>.
     detune  : 0,     // Set a default detune on the constructor if you don't want to set detune on <code>play()</code>. Detune is measured in cents. 100 cents is equal to 1 semitone.
     panning : -.5,    // Horizontal placement of the sound source. Possible values are from 1 to -1.
@@ -116,7 +121,7 @@ var saw = new Wad({
     delay   : {
         delayTime : .5,  // Time in seconds between each delayed playback.
         wet       : .25, // Relative volume change between the original sound and the first delayed playback.
-        feedback  : .25, // Relative volume change between each delayed playback and the next. 
+        feedback  : .25, // Relative volume change between each delayed playback and the next.
     },
     vibrato : { // A vibrating pitch effect.  Only works for oscillators.
         shape     : 'sine', // shape of the lfo waveform. Possible values are 'sine', 'sawtooth', 'square', and 'triangle'.
@@ -135,10 +140,10 @@ var saw = new Wad({
 
 
 <h3>Panning</h3>
-Wad.js supports two types of panning: stereo-panning, and 3d-panning. Stereo-panning works the same way panning works in most audio software. With stereo panning, you can specify the left/right balance of the sound using a number between 1 and -1. A value of 1 means the sound is panned hard-right, and a value of -1 means the sound is panned hard-left. 
+Wad.js supports two types of panning: stereo-panning, and 3d-panning. Stereo-panning works the same way panning works in most audio software. With stereo panning, you can specify the left/right balance of the sound using a number between 1 and -1. A value of 1 means the sound is panned hard-right, and a value of -1 means the sound is panned hard-left.
 
 With 3d-panning, you don't directly set the left/right stereo balance. Rather, the panning setting describes the distance of the sound source from the audio listener. Any time you would pass in a panning parameter (either to the constructor, the <code>play()</code> method, or the <code>setPanning()</code> method), you can pass it in as a three element array to specify the X, Y, and Z location of the sound. You can set the panning to arbitrarily high or low values, but it will make the sound very quiet, since it's very far away.
-When using 3d-panning, there are two different panning models that can be used. The HRTF panning model is higher quality, but the equalpower panning model is more performant. If not specified, the equalpower panning model is used. 
+When using 3d-panning, there are two different panning models that can be used. The HRTF panning model is higher quality, but the equalpower panning model is more performant. If not specified, the equalpower panning model is used.
 
 
 <pre><code>
@@ -174,7 +179,7 @@ var saw = new Wad({source : 'sawtooth'})
 saw.play({
     volume  : 0.8,
     wait    : 0,     // Time in seconds between calling play() and actually triggering the note.
-    loop    : false, // This overrides the value for loop on the constructor, if it was set. 
+    loop    : false, // This overrides the value for loop on the constructor, if it was set.
     pitch   : 'A4',  // A4 is 440 hertz.
     label   : 'A',   // A label that identifies this note.
     env     : {hold : 9001},
@@ -191,7 +196,7 @@ If you like, you can also select a pitch by frequency.
 
 <h4 id='play-labels'>Play Labels</h4>
 
-When you call <code>stop()</code> on a Wad, it will only stop the most recently triggered note. If you want to retain control over multiple notes that played from the same Wad, you can label those notes when <code>play()</code> is called. When <code>stop()</code> is called, you can pass in a label argument to stop all currently sustained notes with that label. 
+When you call <code>stop()</code> on a Wad, it will only stop the most recently triggered note. If you want to retain control over multiple notes that played from the same Wad, you can label those notes when <code>play()</code> is called. When <code>stop()</code> is called, you can pass in a label argument to stop all currently sustained notes with that label.
 
 <pre><code>
 saw.play({pitch : 'A4', label : 'A4'}) // The label can be any string, but using the same name as the note is often sensible.
@@ -231,7 +236,7 @@ var voice = new Wad({
 voice.play()
 </code></pre>
 
-If <code>voice.play()</code> is called with no arguments, it uses the arguments from the constructor. However, if it is called with any arguments, all arguments from the constructor are discarded (except for source), and the arguments passed to <code>voice.play()</code> are used instead. 
+If <code>voice.play()</code> is called with no arguments, it uses the arguments from the constructor. However, if it is called with any arguments, all arguments from the constructor are discarded (except for source), and the arguments passed to <code>voice.play()</code> are used instead.
 
 <h3>PolyWads</h3>
 
@@ -288,14 +293,14 @@ mixerTrack.rec.stop()               // Take a break.
 mixerTrack.rec.record()             // Append to the same recording buffer.
 sine.play({pitch : 'G3'})
 mixerTrack.rec.stop()
-mixerTrack.rec.createWad()          // This method accepts the same arguments as the Wad constructor, except that the 'source' is implied, so it's fine to call this method with no arguments. 
+mixerTrack.rec.createWad()          // This method accepts the same arguments as the Wad constructor, except that the 'source' is implied, so it's fine to call this method with no arguments.
 mixerTrack.rec.recordings[0].play() // The most recent recording is unshifted to the front of this array.
 mixerTrack.rec.clear()              // Clear the recording buffer when you're done with it, so you can record something else.
 </code></pre>
 
-Wad.js uses Recorder.js for recording (the 'createWad()' method and the 'recordings' array are the only extensions that I've added). For more comprehensive documentation about the recorder object, <a href='https://github.com/mattdiamond/Recorderjs'>check out the Recorder.js documentation</a>. 
+Wad.js uses Recorder.js for recording (the 'createWad()' method and the 'recordings' array are the only extensions that I've added). For more comprehensive documentation about the recorder object, <a href='https://github.com/mattdiamond/Recorderjs'>check out the Recorder.js documentation</a>.
 
-Note that the minified version of Wad.js has Recorder.js concatenated to it, but the source version does not. If you want to tinker with recording in the source version, you will need to include recorder.js separately. Whichever version you use, recorderWorker.js is always a separate file, and its location must be specified in the recConfig object. 
+Note that the minified version of Wad.js has Recorder.js concatenated to it, but the source version does not. If you want to tinker with recording in the source version, you will need to include recorder.js separately. Whichever version you use, recorderWorker.js is always a separate file, and its location must be specified in the recConfig object.
 
 <h4>Compression</h4>
 
@@ -316,7 +321,7 @@ var compressor = new Wad.Poly({
 
 <h4>Pitch Detection</h4>
 
-PolyWads can detect the frequency of their input. 
+PolyWads can detect the frequency of their input.
 
 <pre><code>
 var voice = new Wad({source : 'mic' }); // At this point, your browser will ask for permission to access your microphone.
@@ -386,9 +391,9 @@ Wad.midiInputs[0].onmidimessage = function(event){
 Wad.midiInputs[1].onmidimessage = anotherMidiHandlerFunction // If you have multiple MIDI devices that you would like to use simultaneously, you will need multiple MIDI handler functions.
 </code></pre>
 
-As of writing this, MIDI is poorly supported by most browsers. In Chrome, MIDI is an 'experimental feature', so you will need to <a href="http://stackoverflow.com/questions/21821121/web-midi-api-not-implemented-in-chrome-canary">enable it manually</a>. 
+As of writing this, MIDI is poorly supported by most browsers. In Chrome, MIDI is an 'experimental feature', so you will need to <a href="http://stackoverflow.com/questions/21821121/web-midi-api-not-implemented-in-chrome-canary">enable it manually</a>.
 
-You will also need to install the <a href="http://jazz-soft.net/doc/Jazz-Plugin/">jazz plugin</a> to give your browser access to MIDI input. 
+You will also need to install the <a href="http://jazz-soft.net/doc/Jazz-Plugin/">jazz plugin</a> to give your browser access to MIDI input.
 
 <h2>How To Contribute</h2>
 
@@ -408,4 +413,3 @@ Originally, I had wanted to allow users to easily add an LFO to any parameter, s
 <h3>Presets</h3>
 
 It would be nice if there were more presets, so that users wouldn't have to make most of their sounds from scratch. If you enjoy making your own sounds with Wad.js, consider submitting them to be used as presets. Better yet, you can bundle together a bunch of presets as a 'preset-pack'.
-
